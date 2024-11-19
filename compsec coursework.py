@@ -1,1 +1,1 @@
-print("hello world")
+from django import *
