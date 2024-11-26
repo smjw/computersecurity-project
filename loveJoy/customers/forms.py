@@ -40,11 +40,11 @@ class PasswordResetForm(forms.Form):
         security_answer = cleaned_data.get("security_answer")
 
         try:
-            user = User.objects.get(email=email)
-            # Assuming security answer is stored in a custom field or model
-            if user.profile.security_answer != security_answer:
+            customer = Customer.objects.get(email=email)
+            if customer.security_answer != security_answer:  
                 raise forms.ValidationError("Incorrect security answer.")
-        except User.DoesNotExist:
+        except Customer.DoesNotExist:
             raise forms.ValidationError("Email address not found.")
-        
+
         return cleaned_data
+

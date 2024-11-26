@@ -8,7 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from .forms import PasswordResetForm
-
+from django.contrib.auth import get_user_model
+from .models import Customer
 # Create your views here.
 
 def register(request):
@@ -52,14 +53,13 @@ def password_reset(request):
             security_answer = form.cleaned_data['security_answer']
 
             try:
-                user = User.objects.get(email=email)
-                if user.profile.security_answer == security_answer:
-                    # Redirect to the Django password reset view if the security answer is correct
-                    return redirect('password_reset')  # redirect to Django's built-in password reset view
+                customer = Customer.objects.get(email=email)
+                if customer.security_answer == security_answer:  
+                    return redirect('password_reset')
                 else:
-                    messages.error(request, 'Incorrect security answer.')
-            except User.DoesNotExist:
-                messages.error(request, 'Email address not found.')
+                    form.add_error('security_answer', 'Incorrect security answer.')
+            except Customer.DoesNotExist:
+                form.add_error('email', 'Email address not found.')
 
     else:
         form = PasswordResetForm()
