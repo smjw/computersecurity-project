@@ -18,6 +18,7 @@
             {{ form.password }}
             {{ form.password.errors }}
         </div>
+        <input type="hidden" name="next" value="{{ next }}">
         <button type="submit">Login</button>
     </form>
     <p><a href="{% url 'securitycheck' %}">Forgot your password?</a></p>

@@ -10,14 +10,16 @@ from django.core.mail import send_mail
 from .forms import PasswordResetForm
 from django.contrib.auth import get_user_model
 from .models import Customer
-# Create your views here.
+from django.contrib.auth.decorators import login_required
+from .forms import EvaluationRequestForm
+
 
 def register(request):
     if request.method == "POST":
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login")#redirect later
+            return redirect("login")
         else: 
             print(form.errors)
     else:
@@ -34,7 +36,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"Welcome, {user.username}!")
-                return redirect('home')  # redirect
+                return redirect("request_evaluation")  # redirect
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -65,3 +67,20 @@ def password_reset(request):
         form = PasswordResetForm()
 
     return render(request, 'customers/securitycheck.html', {'form': form})
+
+
+def request_evaluation(request):
+    if request.method == 'POST':
+        form = EvaluationRequestForm(request.POST, request.FILES)
+        if form.is_valid():
+            evaluation_request = form.save(commit=False)
+            evaluation_request.user = request.user
+            evaluation_request.save()
+            return redirect('evaluation_success')  # Redirect to a success page
+    else:
+        form = EvaluationRequestForm()
+    return render(request, 'request_evaluation.html', {'form': form})
+
+
+def evaluation_success(request):
+    return render(request, 'evaluation_success.html')

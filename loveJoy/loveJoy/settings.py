@@ -145,3 +145,11 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'smjw21@sussex.ac.uk'  
 EMAIL_HOST_PASSWORD = 'password'  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  
+
+# evaluation page
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+LOGIN_URL = '/customers/login/'
+LOGIN_REDIRECT_URL = '/customers/request_evaluation/'
