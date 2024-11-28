@@ -76,7 +76,7 @@ def request_evaluation(request):
             evaluation_request = form.save(commit=False)
             evaluation_request.user = request.user
             evaluation_request.save()
-            return redirect('evaluation_success')  # Redirect to a success page
+            return redirect('evaluation_success')  
     else:
         form = EvaluationRequestForm()
     return render(request, 'request_evaluation.html', {'form': form})
