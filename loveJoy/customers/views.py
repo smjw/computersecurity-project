@@ -79,8 +79,8 @@ def request_evaluation(request):
             return redirect('evaluation_success')  
     else:
         form = EvaluationRequestForm()
-    return render(request, 'request_evaluation.html', {'form': form})
+    return render(request, 'customers/request_evaluation.html', {'form': form})
 
 
 def evaluation_success(request):
-    return render(request, 'evaluation_success.html')
+    return render(request, 'customers/evaluation_success.html')
