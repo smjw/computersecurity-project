@@ -12,6 +12,8 @@ from django.contrib.auth import get_user_model
 from .models import Customer
 from django.contrib.auth.decorators import login_required
 from .forms import EvaluationRequestForm
+from .models import RequestList
+from django.contrib.auth.decorators import user_passes_test
 
 
 def register(request):
@@ -84,3 +86,13 @@ def request_evaluation(request):
 
 def evaluation_success(request):
     return render(request, 'customers/evaluation_success.html')
+
+
+#check if admin
+def admin_required(view_func):
+    return user_passes_test(lambda u: u.is_superuser)(view_func)
+
+@admin_required
+def admin_request_list(request):
+    requests = RequestList.objects.all().order_by("-submitted_at")
+    return render(request, "admin_request_list.html", {"requests": requests})

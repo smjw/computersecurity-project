@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from .views import *
 from django.contrib.auth import views as auth_views
+from .views import admin_request_list
 
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
     path('request_evaluation/', request_evaluation, name='request_evaluation'),
     path('evaluation_success/', evaluation_success, name='evaluation_success'),
+    path("admin/evaluation-requests/", admin_request_list, name="admin_request_list"),
     
 ]

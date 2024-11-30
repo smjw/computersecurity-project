@@ -34,3 +34,15 @@ class EvaluationRequest(models.Model):
 
     def __str__(self):
         return f"Evaluation Request by {self.user.username} on {self.created_at}"
+    
+
+
+class RequestList(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="evaluation_requests")
+    comment = models.TextField()
+    contact_method = models.CharField(max_length=10, choices=[("phone", "Phone"), ("email", "Email")])
+    photo = models.ImageField(upload_to="evaluation_photos/")
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Request by {self.user} on {self.submitted_at}"

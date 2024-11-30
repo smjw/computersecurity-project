@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evaluation Requests</title>
+</head>
+<body>
+    <h1>Evaluation Requests</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Comment</th>
+                <th>Contact Method</th>
+                <th>Photo</th>
+                <th>Submitted At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.user }}</td>
+                <td>{{ request.comment }}</td>
+                <td>{{ request.contact_method }}</td>
+                <td>
+                    {% if request.photo %}
+                    <a href="{{ request.photo.url }}" target="_blank">View Photo</a>
+                    {% else %}
+                    No photo uploaded
+                    {% endif %}
+                </td>
+                <td>{{ request.submitted_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
