@@ -4,6 +4,8 @@ from .models import Customer
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from .models import EvaluationRequest
+from captcha.fields import CaptchaField
+
 
 
 
@@ -14,6 +16,9 @@ class CustomerRegistrationForm(UserCreationForm):
         label="Security Question: What is your mother's maiden name?",
         widget=forms.TextInput(attrs={'placeholder':'enter answer'}),
     )
+    captcha = CaptchaField()
+
+
     class Meta:
         model = Customer
         fields = ["username", "email", "first_name", "last_name", "phone_number", "password1", "password2", "security_answer"]
