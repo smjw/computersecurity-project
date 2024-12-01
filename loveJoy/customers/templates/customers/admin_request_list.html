@@ -8,8 +8,8 @@
     <table border="1">
         <thead>
             <tr>
-                <th>User</th>
-                <th>Comment</th>
+                <th>ID</th>
+                <th>Details</th>
                 <th>Contact Method</th>
                 <th>Photo</th>
                 <th>Submitted At</th>
@@ -19,7 +19,7 @@
             {% for request in requests %}
             <tr>
                 <td>{{ request.user }}</td>
-                <td>{{ request.comment }}</td>
+                <td>{{ request.details }}</td>
                 <td>{{ request.contact_method }}</td>
                 <td>
                     {% if request.photo %}
@@ -28,7 +28,7 @@
                     No photo uploaded
                     {% endif %}
                 </td>
-                <td>{{ request.submitted_at }}</td>
+                <td>{{ request.created_at }}</td>
             </tr>
             {% endfor %}
         </tbody>

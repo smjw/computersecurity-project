@@ -12,8 +12,14 @@ from django.contrib.auth import get_user_model
 from .models import Customer
 from django.contrib.auth.decorators import login_required
 from .forms import EvaluationRequestForm
-from .models import RequestList
+from .models import EvaluationRequest
 from django.contrib.auth.decorators import user_passes_test
+
+
+
+def home(request):
+    return render(request, "customers/home.html")
+
 
 
 def register(request):
@@ -38,7 +44,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"Welcome, {user.username}!")
-                return redirect("request_evaluation")  # redirect
+                return redirect("home")  
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -94,5 +100,6 @@ def admin_required(view_func):
 
 @admin_required
 def admin_request_list(request):
-    requests = RequestList.objects.all().order_by("-submitted_at")
-    return render(request, "admin_request_list.html", {"requests": requests})
+    requests = EvaluationRequest.objects.all().order_by
+    return render(request, "customers/admin_request_list.html", {"requests": requests})
+

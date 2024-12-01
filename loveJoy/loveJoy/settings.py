@@ -152,4 +152,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 LOGIN_URL = '/customers/login/'
-LOGIN_REDIRECT_URL = '/customers/request_evaluation/'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = '/customers/'

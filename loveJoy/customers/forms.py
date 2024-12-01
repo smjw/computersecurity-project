@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Customer
-#from phonenumbers import parse, is_valid_number, NumberParseException
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from .models import EvaluationRequest

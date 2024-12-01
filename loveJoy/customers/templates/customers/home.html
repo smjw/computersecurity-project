@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>LoveJoy Antiques</h1>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+                <li><a href="{% url 'request_evaluation' %}">Request Evaluation</a></li>
+                {% if user.is_superuser %}
+                    <li><a href="{% url 'admin_request_list' %}">Admin</a></li>
+                {% endif %}
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</body>
+</html>
+
