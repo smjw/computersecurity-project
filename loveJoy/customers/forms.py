@@ -5,6 +5,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from .models import EvaluationRequest
 from captcha.fields import CaptchaField
+from django.core.exceptions import ValidationError
+import os
+
 
 
 
@@ -63,4 +66,18 @@ class EvaluationRequestForm(forms.ModelForm):
             'details': forms.Textarea(attrs={'placeholder': 'Enter details about the object...'}),
             'contact_method': forms.Select(),
         }
+    def clean_photo(self):
+        photo = self.cleaned_data.get('photo')
+
+        # file size
+        max_file_size = 5 * 1024 * 1024  # 5 MB
+        if photo.size > max_file_size:
+            raise ValidationError("The file is too large. Maximum size allowed is 5 MB.")
+
+        # file type
+        allowed_file_types = ['image/jpeg', 'image/png']
+        if photo.content_type not in allowed_file_types:
+            raise ValidationError("Unsupported file type. Please upload a JPEG or PNG image.")
+
+        return photo
 

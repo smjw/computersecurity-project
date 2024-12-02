@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'phonenumbers',
     'customers',
-    'captcha'
+    'captcha',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
+
 ]
 
 ROOT_URLCONF = 'loveJoy.urls'
@@ -137,6 +142,8 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  
+
 
 #email password reset
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

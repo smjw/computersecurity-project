@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2FA</title>
+</head>
+<body>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <h2>Enter OTP</h2>
+    <a>A one-time password has been sent to your email</a>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="otp_token">OTP:</label>
+        <input type="text" name="otp_token" id="otp_token" required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+

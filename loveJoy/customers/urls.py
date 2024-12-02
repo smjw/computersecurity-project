@@ -11,8 +11,10 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("register/", views.register, name="register"),
     path('captcha/', include('captcha.urls')),
-
+    path('email_verification/<uidb64>/<token>/', email_verification, name='email_verification'),
+    path('email_verification_sent/', lambda request: render(request, "customers/email_verification_sent.html"), name='email_verification_sent'),
     path("login/", user_login, name="login"),  
+    path('validate-otp/', validate_otp, name='validate_otp'),
     path("logout/", LogoutView.as_view(), name="logout"),
     path('securitycheck/', views.password_reset, name='securitycheck'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
