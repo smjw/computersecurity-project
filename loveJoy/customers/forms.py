@@ -13,7 +13,7 @@ import os
 
 
 
-
+# customer registers
 class CustomerRegistrationForm(UserCreationForm):
     security_answer = forms.CharField(
         label="Security Question: What is your mother's maiden name?",
@@ -26,7 +26,8 @@ class CustomerRegistrationForm(UserCreationForm):
         model = Customer
         fields = ["username", "email", "first_name", "last_name", "phone_number", "password1", "password2", "security_answer"]
 
-    
+
+#customer logs in
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
         max_length=150,
@@ -38,7 +39,7 @@ class CustomAuthenticationForm(AuthenticationForm):
         label="Password",
     )
 
-
+# customer forgot password
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
     security_answer = forms.CharField(max_length=255)
@@ -58,6 +59,8 @@ class PasswordResetForm(forms.Form):
         return cleaned_data
 
 
+
+#customer requests evaluation
 class EvaluationRequestForm(forms.ModelForm):
     class Meta:
         model = EvaluationRequest

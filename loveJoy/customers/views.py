@@ -32,12 +32,12 @@ from django.http import HttpResponseForbidden
 
 
 
-
+# home page
 def home(request):
     return render(request, "customers/home.html")
 
 
-
+# registration 
 def register(request):
     if request.method == "POST":
         form = CustomerRegistrationForm(request.POST)
@@ -69,6 +69,7 @@ def register(request):
     return render(request, "customers/register.html", {"form":form})
 
 
+#email verification
 def email_verification(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -84,6 +85,8 @@ def email_verification(request, uidb64, token):
         return render(request, "customers/email_verification_failed.html")
 
 
+
+# customer log in
 def user_login(request):
     max_attempts = 3
     lockout_time = 10
@@ -93,7 +96,7 @@ def user_login(request):
         lockout_until = request.session.get('lockout_until')
 
         if lockout_until:
-            lockout_until = datetime.fromisoformat(lockout_until)  # Convert from string to datetime
+            lockout_until = datetime.fromisoformat(lockout_until)  
             if now() < lockout_until:
                 remaining_time = (lockout_until - now()).seconds // 60
                 messages.error(request, f"Too many login attempts. Try again in {remaining_time} minutes.")
@@ -109,10 +112,7 @@ def user_login(request):
                 # reset session 
                 request.session['login_attempts'] = 0
                 request.session['lockout_until'] = None
-                #login(request, user)
-                #messages.success(request, f"Welcome, {user.username}!")
-                #return redirect("home")
-                # OTP Validation
+            
                 
                 otp = str(random.randint(100000, 999999))
                 request.session['otp'] = otp
@@ -120,8 +120,8 @@ def user_login(request):
                 # Send OTP email
                 send_mail(
                     subject="Your OTP Code",
-                    message=f"Your OTP code is {otp}. It will expire in 5 minutes.",
-                    from_email="email@gmail.com",  # Replace with a valid sender email
+                    message=f"Your OTP code is {otp} It will expire in 5 minutes.",
+                    from_email="email@gmail.com",  
                     recipient_list=[user.email],
                 )
 
@@ -154,6 +154,7 @@ def user_login(request):
     return render(request, 'customers/login.html', {'form': form})
 
 
+# one time password for login
 def validate_otp(request):
     user_id = request.session.get('pending_user_id')
     if not user_id:
@@ -164,9 +165,6 @@ def validate_otp(request):
 
     if request.method == 'POST':
         otp_token = request.POST.get('otp_token')
-
-        print(f"OTP entered by user: {otp_token}")
-        print(f"OTP stored in session: {request.session['otp']}")
 
         # Vcheck
         if otp_token == request.session.get('otp'):
@@ -231,7 +229,7 @@ def validate_otp(request):
 #     return render(request, 'customers/validate_otp.html')
 
 
-
+# forgotten password
 def password_reset(request):
     if request.method == 'POST':
         form = PasswordResetForm(request.POST)
@@ -254,6 +252,8 @@ def password_reset(request):
     return render(request, 'customers/securitycheck.html', {'form': form})
 
 
+
+# user requests an evaluation
 def request_evaluation(request):
     if request.method == 'POST':
         form = EvaluationRequestForm(request.POST, request.FILES)
@@ -271,7 +271,7 @@ def evaluation_success(request):
     return render(request, 'customers/evaluation_success.html')
 
 
-#check if admin
+#check if admin, view list of requests
 def admin_required(view_func):
     return user_passes_test(lambda u: u.is_superuser)(view_func)
 

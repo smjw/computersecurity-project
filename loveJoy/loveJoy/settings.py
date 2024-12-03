@@ -163,8 +163,5 @@ LOGIN_URL = '/customers/login/'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = '/customers/'
 
-#botnet attack captcha
-# RECAPTCHA_PUBLIC_KEY = '6Le9S48qAAAAAPN9oEw7pJAeVUVwrx5DohNO--hb'
-# #RECAPTCHA_PRIVATE_KEY = ''
-# RECAPTCHA_REQUIRED_SCORE = 0.85  
+
 

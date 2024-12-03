@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 
- 
+# customer model
 class Customer(AbstractUser):
     email = models.EmailField(("email address"), unique=True, null=False, blank=False)
     first_name = models.CharField(max_length=50, null=False, blank=False)
@@ -19,7 +19,8 @@ class Customer(AbstractUser):
     def __str__(self):
         return self.username
    
-    
+
+# user requests an evaluation
 class EvaluationRequest(models.Model):
     CONTACT_METHOD_CHOICES = [
         ('phone', 'Phone'),
@@ -37,6 +38,7 @@ class EvaluationRequest(models.Model):
     
 
 
+# admin views list of eval requests
 class RequestList(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="evaluation_requests")
     comment = models.TextField()
