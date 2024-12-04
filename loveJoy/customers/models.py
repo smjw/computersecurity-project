@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import *
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
-from encrypted_model_fields.fields import EncryptedCharField, EncryptedTextField
+#from encrypted_model_fields.fields import EncryptedCharField, EncryptedTextField
 
 
 

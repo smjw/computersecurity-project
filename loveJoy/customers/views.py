@@ -180,54 +180,6 @@ def validate_otp(request):
 
 
 
-# def validate_otp(request):
-#     print("Entered validate_otp view")  # Debugging line to confirm view execution
-
-#     user_id = request.session.get('pending_user_id')
-#     if not user_id:
-#         return HttpResponseForbidden("Unauthorized access")
-
-#     user = get_object_or_404(Customer, id=user_id)
-
-#     # Generate OTP if not already present
-#     otp = request.session.get('otp')
-#     if not otp:
-#         otp = str(random.randint(100000, 999999))  
-#         request.session['otp'] = otp
-#         print(otp)
-
-#         # Debug: Confirm OTP generation
-#         print(f"Generated OTP: {otp} for user {user.email}")
-
-#         try:
-#             send_mail(
-#                 subject="Your OTP Code",
-#                 message=f"Your OTP code is {otp}. It will expire in 5 minutes.",
-#                 from_email="email@gmail.com",  
-#                 recipient_list=[user.email],
-#             )
-#             print(f"OTP sent to {user.email}")  
-#         except Exception as e:
-#             print(f"Error sending OTP email: {e}")
-
-#     if request.method == 'POST':
-#         otp_token = request.POST.get('otp_token')
-
-#         # Debug: Compare stored and entered OTP
-#         print(f"Stored OTP: {request.session.get('otp')}")
-#         print(f"Entered OTP: {otp_token}")
-
-#         if otp_token == request.session.get('otp'):
-#             # Clear session on success
-#             del request.session['otp']
-#             del request.session['pending_user_id']
-#             login(request, user)
-#             return redirect('home')
-#         else:
-#             messages.error(request, "Invalid OTP. Please try again.")
-
-#     return render(request, 'customers/validate_otp.html')
-
 
 # forgotten password
 def password_reset(request):
