@@ -206,6 +206,7 @@ def password_reset(request):
 
 
 # user requests an evaluation
+@login_required
 def request_evaluation(request):
     if request.method == 'POST':
         form = EvaluationRequestForm(request.POST, request.FILES)
